@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — ForgedX</title>
+  <title>About — Off Limits 4x4</title>
+
   <style>
     :root {
-      --bg-dark: #0b0f14;
-      --bg-panel: #121824;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --accent-blue: #3b82f6;
-      --accent-blue-soft: #1e3a8a;
+      --bg-dark: #0f130e;
+      --bg-panel: #171d16;
+
+      --text-main: #f2f2ee;
+      --text-muted: #b3b3a8;
+
+      --accent-primary: #d9772b;
+      --accent-dark: #8f4f1f;
     }
 
     * {
@@ -22,33 +25,60 @@
     }
 
     body {
-      background: radial-gradient(1200px 600px at 50% -200px, var(--accent-blue-soft), transparent), var(--bg-dark);
+      background:
+        radial-gradient(1000px 500px at 50% -200px, rgba(217,119,43,0.18), transparent),
+        var(--bg-dark);
       color: var(--text-main);
-      line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    /* NAVBAR */
-    nav {
-      width: 100%;
-      position: sticky;
-      top: 0;
-      background: rgba(11, 15, 20, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      z-index: 10;
+    /* HAMBURGER */
+    .menu-btn {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 30;
+      width: 32px;
+      height: 24px;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .menu-btn span {
+      height: 3px;
+      width: 100%;
+      background: var(--text-main);
+      border-radius: 2px;
+    }
+
+    /* SIDEBAR NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 260px;
+      background: var(--bg-panel);
+      border-right: 1px solid rgba(217,119,43,0.35);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 25;
+      padding-top: 4rem;
+    }
+
+    nav.open {
+      transform: translateX(0);
     }
 
     .nav-inner {
-      width: 100%;
-      max-width: 1200px;
       display: flex;
-      justify-content: space-around;
-      padding: 1rem 0;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding-left: 2rem;
     }
 
     nav a {
@@ -60,9 +90,26 @@
     }
 
     nav a:hover {
-      color: var(--accent-blue);
+      color: var(--accent-primary);
     }
 
+    /* OVERLAY */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 20;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* CONTENT */
     .container {
       max-width: 1000px;
       margin: 0 auto;
@@ -75,23 +122,24 @@
     }
 
     h1 {
-      font-size: clamp(2.2rem, 5vw, 3rem);
-      letter-spacing: 0.05em;
+      font-size: clamp(2.3rem, 5vw, 3.1rem);
+      letter-spacing: 0.08em;
     }
 
     h1 span {
-      color: var(--accent-blue);
+      color: var(--accent-primary);
     }
 
     .subtitle {
       color: var(--text-muted);
       margin-top: 0.75rem;
-      max-width: 600px;
+      max-width: 650px;
     }
 
     section {
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
-      border: 1px solid rgba(255,255,255,0.06);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0));
+      border: 1px solid rgba(217,119,43,0.25);
       border-radius: 16px;
       padding: 2.5rem;
       margin-bottom: 2rem;
@@ -100,36 +148,16 @@
     h2 {
       font-size: 1.4rem;
       margin-bottom: 1rem;
-      color: var(--accent-blue);
-      letter-spacing: 0.04em;
+      color: var(--accent-primary);
+      letter-spacing: 0.06em;
     }
 
     p {
       margin-bottom: 1rem;
-      color: var(--text-main);
     }
 
     .muted {
       color: var(--text-muted);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-
-    .card {
-      background: var(--bg-panel);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 14px;
-      padding: 1.5rem;
-    }
-
-    .card h3 {
-      margin-bottom: 0.5rem;
-      font-size: 1.1rem;
     }
 
     footer {
@@ -141,9 +169,18 @@
     }
   </style>
 </head>
+
 <body>
 
-  <nav>
+  <!-- HAMBURGER -->
+  <div class="menu-btn" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
     <div class="nav-inner">
       <a href="/">Home</a>
       <a href="/about">About</a>
@@ -153,35 +190,48 @@
     </div>
   </nav>
 
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- CONTENT -->
   <div class="container">
     <header>
-      <h1>About <span>ForgedX</span></h1>
+      <h1>About <span>Off Limits 4x4</span></h1>
       <p class="subtitle">
-        Just three mates who love getting out in the 4WD, camping under the stars, fixing up our rigs, and sharing the adventure.
+        Just three mates who love getting out in the 4WD, camping under the stars,
+        fixing our rigs, and seeing where the tracks lead.
       </p>
     </header>
 
     <section>
       <h2>What We Do</h2>
       <p>
-        We hit tracks, explore trails, and camp wherever we can. Along the way, we tackle repairs, mods, and the challenges that come with real 4WD adventures.
+        We head off-road whenever we can — chasing tracks, finding campsites, and
+        seeing how far we can push both ourselves and our vehicles.
       </p>
       <p class="muted">
-        No polished marketing, no showroom builds — just us, our mates, and the vehicles we drive hard and fix ourselves.
+        If something breaks, we fix it. If we get stuck, we laugh about it later.
       </p>
     </section>
 
     <section>
-      <h2>Why ForgedX</h2>
+      <h2>Why Off Limits 4x4</h2>
       <p>
-        We just want to document the fun, the mess-ups, the breakdowns, and the fixes — showing that adventure is for everyone willing to get their hands dirty.
+        This is just us documenting the good days, the rough days, the breakdowns,
+        and the wins — no perfect builds required.
       </p>
     </section>
 
     <footer>
-      © ForgedX — Just three mates on a 4WD adventure
+      © Off Limits 4x4 — Just three mates chasing tracks and campfires
     </footer>
   </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("open");
+      document.getElementById("overlay").classList.toggle("show");
+    }
+  </script>
 
 </body>
 </html>
