@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — Off Limits 4x4</title>
@@ -211,6 +212,35 @@
       font-size: 0.9rem;
       padding: 2rem 0 1rem;
     }
+    .about-box {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0));
+  border: 1px solid rgba(217,119,43,0.35);
+  border-radius: 18px;
+  padding: 3rem 2.5rem;
+  max-width: 820px;
+  margin: 3rem auto 0;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+.about-box h1 {
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.about-box h1 span {
+  color: var(--accent-primary);
+}
+
+.about-box p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
   </style>
 </head>
 
@@ -247,7 +277,7 @@
         @offlimits4x4
       </a>
 
-     <a href="https://tiktok.com/@offlimits_4x4" target="_blank">
+     <a href="https://www.tiktok.com/@off.limits.4x4 target="_blank">
   <!-- TikTok SVG -->
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16" height="16" fill="currentColor">
     <path d="M39.25 12.29c-1.15-.53-2.39-.88-3.7-.99V6.24h-5.09c-.19 0-.37.05-.53.14-.16.08-.29.21-.38.36-.09.16-.13.33-.13.51v26.64c0 2.52-2.03 4.57-4.54 4.57-2.5 0-4.54-2.05-4.54-4.57s2.03-4.57 4.54-4.57c.15 0 .3.01.45.03v-9.12c-.3-.03-.59-.05-.88-.05-6.15 0-11.16 4.92-11.16 11s5.01 11 11.16 11 11.16-4.92 11.16-11V17.55c1.88.65 3.92.47 5.74-.51.65-.37.94-1.16.73-1.89-.21-.73-.87-1.2-1.61-1.39z"/>
@@ -270,37 +300,21 @@
 
   <!-- PAGE CONTENT -->
   <div class="container">
-    <header>
-      <h1>About <span>Off Limits 4x4</span></h1>
-      <p class="subtitle">
-        Just three mates who love getting out in the 4WD, camping under the stars,
-        fixing our rigs, and seeing where the tracks lead.
-      </p>
-    </header>
+  <section class="about-box">
+    <h1>About <span>Us</span></h1>
 
-    <section>
-      <h2>What We Do</h2>
-      <p>
-        We head off-road whenever we can — chasing tracks, finding campsites, and
-        seeing how far we can push both ourselves and our vehicles.
-      </p>
-      <p class="muted">
-        If something breaks, we fix it. If we get stuck, we laugh about it later.
-      </p>
-    </section>
+    <p>
+      Just three mates from New Zealand with a passion for off-roading, adventure, and the great outdoors. 
+      Off Limits 4x4 was born out of our shared passion for exploring the unbeaten tracks and camping under the stars.
 
-    <section>
-      <h2>Why Off Limits 4x4</h2>
-      <p>
-        This is just us documenting the good days, the rough days, the breakdowns,
-        and the wins — no perfect builds required.
-      </p>
-    </section>
+      No professionals here, just everyday guys who love to get out there and have a good time.
+    </p>
+  </section>
 
-    <footer>
-      © Off Limits 4x4 — Just three mates chasing tracks and campfires
-    </footer>
-  </div>
+  <footer>
+    © Off Limits 4x4 2026. All rights reserved.
+  </footer>
+</div>
 
   <script>
     function toggleMenu() {
