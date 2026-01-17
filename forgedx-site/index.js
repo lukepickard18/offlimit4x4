@@ -2,14 +2,30 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
-const server = http.createServer((req, res) => {
-  let filePath = "index.html";
+const mimeTypes = {
+  ".html": "text/html",
+  ".css": "text/css",
+  ".js": "text/javascript",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".ico": "image/x-icon",
+  ".svg": "image/svg+xml",
+  ".mp4": "video/mp4"
+};
 
-  if (req.url === "/about" || req.url === "/about.html") {
-    filePath = "about.html";
+const server = http.createServer((req, res) => {
+  let filePath;
+
+  if (req.url === "/" || req.url === "/home") {
+    filePath = "index.html";
+  } else {
+    filePath = req.url;
   }
 
   const fullPath = path.join(__dirname, "public", filePath);
+  const ext = path.extname(fullPath);
+  const contentType = mimeTypes[ext] || "application/octet-stream";
 
   fs.readFile(fullPath, (err, data) => {
     if (err) {
@@ -18,18 +34,11 @@ const server = http.createServer((req, res) => {
       return;
     }
 
-    res.writeHead(200, {
-      "Content-Type": "text/html",
-      "Cache-Control": "no-cache, no-store, must-revalidate",
-      "Pragma": "no-cache",
-      "Expires": "0"
-    });
-
+    res.writeHead(200, { "Content-Type": contentType });
     res.end(data);
   });
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Off Limits 4x4 running on port ${PORT}`);
+server.listen(3000, () => {
+  console.log("Off Limits 4x4 running at http://localhost:3000");
 });
