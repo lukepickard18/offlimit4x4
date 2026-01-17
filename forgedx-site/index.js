@@ -3,15 +3,10 @@ const fs = require("fs");
 const path = require("path");
 
 const server = http.createServer((req, res) => {
-  let filePath;
+  let filePath = "index.html";
 
-  // ROUTING
-  if (req.url === "/" || req.url === "/home") {
-    filePath = "home.html";
-  } else if (req.url === "/about" || req.url === "/about.html") {
+  if (req.url === "/about" || req.url === "/about.html") {
     filePath = "about.html";
-  } else {
-    filePath = req.url.replace("/", "");
   }
 
   const fullPath = path.join(__dirname, "public", filePath);
@@ -23,11 +18,18 @@ const server = http.createServer((req, res) => {
       return;
     }
 
-    res.writeHead(200, { "Content-Type": "text/html" });
+    res.writeHead(200, {
+      "Content-Type": "text/html",
+      "Cache-Control": "no-cache, no-store, must-revalidate",
+      "Pragma": "no-cache",
+      "Expires": "0"
+    });
+
     res.end(data);
   });
 });
 
-server.listen(3000, () => {
-  console.log("ForgedX running at http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Off Limits 4x4 running on port ${PORT}`);
 });
