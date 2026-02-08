@@ -4,16 +4,14 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Off Limits 4x4 - Videos</title>
+  <title>Videos — Off Limits 4x4</title>
 
   <style>
     :root {
       --bg-dark: #0f130e;
       --bg-panel: #171d16;
-
       --text-main: #f2f2ee;
       --text-muted: #b3b3a8;
-
       --accent-primary: #d9772b;
     }
 
@@ -37,6 +35,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
 
     /* HAMBURGER */
@@ -151,52 +150,90 @@
     }
 
     /* PAGE CONTENT */
-    .page-content {
-      flex: 1;
+    .container {
+      max-width: 1100px;
+      padding: 4rem 1.5rem;
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 8rem 1.5rem;
+      flex: 1;
       text-align: center;
     }
 
-    .coming-soon {
-      font-size: 2rem;
-      color: var(--text-main);
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
-      border: 2px dashed rgba(217,119,43,0.5);
-      padding: 4rem 2rem;
-      max-width: 600px;
+      margin-bottom: 2.5rem;
+    }
+
+    h1 span {
+      color: var(--accent-primary);
+    }
+
+    /* VIDEO GRID */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.4rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .video-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0));
+      border: 1px solid rgba(217,119,43,0.3);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .video-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 30px rgba(0,0,0,0.45);
+    }
+
+    .video-card img {
       width: 100%;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-      background: rgba(23,29,22,0.5);
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
     }
 
-    @media (max-width: 768px) {
-      .page-content {
-        padding: 6rem 1rem;
-      }
-      .coming-soon {
-        font-size: 1.5rem;
-        padding: 3rem 1.5rem;
+    .video-card h3 {
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      padding: 0.9rem 0.8rem;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      .video-grid {
+        grid-template-columns: 1fr;
       }
     }
 
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      padding: 2rem 0 1rem;
+    }
   </style>
 </head>
 
 <body>
-  <!-- HAMBURGER -->
+
   <div class="menu-btn" onclick="toggleMenu()">
     <span></span>
     <span></span>
     <span></span>
   </div>
 
-  <!-- SIDEBAR -->
   <nav id="sidebar">
     <div class="nav-inner">
       <a href="index.html">Home</a>
@@ -207,27 +244,33 @@
 
     <div class="socials">
       <span>FOLLOW US</span>
-
-      <a href="https://www.instagram.com/offlimits_4x4/" target="_blank">
-        @offlimits4x4
-      </a>
-      <a href="https://www.tiktok.com/@off.limits.4x4" target="_blank">
-        @offlimits4x4
-      </a>
-      <a href="https://www.youtube.com/channel/UCMJJryJ2M83iyxQ91pCxlVg" target="_blank">
-        @offlimits4x4
-      </a>
+      <a href="https://www.instagram.com/offlimits_4x4" target="_blank">@offlimits4x4</a>
+      <a href="https://www.tiktok.com/@off.limits.4x4" target="_blank">@offlimits4x4</a>
+      <a href="https://www.youtube.com/channel/UCMJJryJ2M83iyxQ91pCxlVg" target="_blank">@offlimits4x4</a>
     </div>
   </nav>
 
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-  <main class="page-content">
-    <div class="coming-soon">Videos Coming Soon</div>
-  </main>
+  <div class="container">
+    <h1>Latest <span>Videos</span></h1>
+
+    <div class="video-grid">
+      <a class="video-card" href="https://www.youtube.com/watch?v=FWDxgYeg5qM&t" target="_blank">
+        <img src="https://img.youtube.com/vi/FWDxgYeg5qM/hqdefault.jpg" alt="Video title">
+        <h3>80 SERIES DIFF BLOWN UP?? (Front end rebuild)
+</h3>
+      </a>
+
+      <a class="video-card" href="https://youtu.be/ZLQS6j1rvzU" target="_blank">
+        <img src="https://img.youtube.com/vi/ZLQS6j1rvzU/hqdefault.jpg" alt="Video title">
+        <h3>80 Series Service… Gone Right?</h3>
+      </a>
+    </div>
+  </div>
 
   <footer>
-    © Off Limits 4x4 2026
+    © Off Limits 4x4 2026. All rights reserved.
   </footer>
 
   <script>
@@ -236,5 +279,6 @@
       document.getElementById("overlay").classList.toggle("show");
     }
   </script>
+
 </body>
 </html>
